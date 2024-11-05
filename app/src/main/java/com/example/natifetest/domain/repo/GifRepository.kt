@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface GifRepository {
-    suspend fun getTrendingGifs(): List<GifResponse>
+    suspend fun getTrendingGifs(): GifResponse
     suspend fun saveGifs(gifs: List<GifEntity>)
     suspend fun getGifById(id: String): Flow<GifEntity>
 }

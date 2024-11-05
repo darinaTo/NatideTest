@@ -13,8 +13,8 @@ class GifRepositoryImpl @Inject constructor(
     private val localDataSource: GifLocalDataSource
 ) : GifRepository {
 
-    override suspend fun getTrendingGifs(): List<GifResponse> {
-        return remoteDataSource.getGifFromApi().getOrDefault(emptyList())
+    override suspend fun getTrendingGifs(): GifResponse {
+        return remoteDataSource.getGifFromApi().getOrDefault(GifResponse(emptyList()))
     }
 
 

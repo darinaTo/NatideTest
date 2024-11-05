@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GifRemoteDataSource @Inject constructor(
     private val gifApiService: GifApiService
 ) {
-    suspend fun getGifFromApi(): Result<List<GifResponse>> {
+    suspend fun getGifFromApi(): Result<GifResponse> {
         return runCatching {
             val response = gifApiService.getTrendingGifs()
 
@@ -19,5 +19,4 @@ class GifRemoteDataSource @Inject constructor(
         }.onFailure { throwable ->
             throw IOException(throwable.message)        }
     }
-
 }

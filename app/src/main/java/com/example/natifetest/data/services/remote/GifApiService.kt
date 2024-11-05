@@ -10,6 +10,7 @@ interface GifApiService {
         suspend fun getTrendingGifs(
             @Query("limit") limit: Int = 25,
             @Query("offset") offset: Int = 0,
-            @Query("rating") rating: String = "pg-13"
-        ): Response<List<GifResponse>>
+            @Query("rating") rating: String = "g",
+            @Query("lang") lang: String = "en"
+        ): Response<GifResponse>
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class FetchAndSaveGifsUseCase @Inject constructor(private val repository: GifRepository) {
     fun execute(): Flow<List<GifUi>> = flow {
-        val gifEntities = repository.getTrendingGifs().flatMap { it.toDbEntities()}
+        val gifEntities = repository.getTrendingGifs().toDbEntities()
         repository.saveGifs(gifEntities)
 
         emit(gifEntities.map { it.toUIModel() })
