@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class GifEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "url") val image: String
+    @ColumnInfo(name = "url") val image: String,
+    @ColumnInfo(name = "isDeleted") val isDeleted :Boolean = false
 )

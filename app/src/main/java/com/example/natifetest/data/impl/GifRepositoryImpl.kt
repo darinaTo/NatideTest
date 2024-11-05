@@ -6,6 +6,7 @@ import com.example.natifetest.domain.entities.dbEntities.GifEntity
 import com.example.natifetest.domain.entities.networkEntities.GifResponse
 import com.example.natifetest.domain.repo.GifRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GifRepositoryImpl @Inject constructor(
@@ -14,7 +15,12 @@ class GifRepositoryImpl @Inject constructor(
 ) : GifRepository {
 
     override suspend fun getTrendingGifs(): GifResponse {
-        return remoteDataSource.getGifFromApi().getOrDefault(GifResponse(emptyList()))
+        val deletedGifIds = localDataSource.getDeletedGifIds().first()
+        val response =  remoteDataSource.getGifFromApi().getOrDefault(GifResponse(emptyList())).data
+            .filter{ gif ->
+                !deletedGifIds.contains(gif.id) }
+
+        return GifResponse(response)
     }
 
 
@@ -30,7 +36,7 @@ class GifRepositoryImpl @Inject constructor(
         localDataSource.getAllGifs()
 
 
-    override suspend fun deleteGif(gifEntity: GifEntity) {
-        localDataSource.deleteGif(gifEntity)
+    override suspend fun deleteGif(gifId: String) {
+        localDataSource.deleteGif(gifId)
     }
 }

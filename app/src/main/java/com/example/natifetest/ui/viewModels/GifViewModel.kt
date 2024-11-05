@@ -6,7 +6,6 @@ import com.example.natifetest.domain.entities.uiEntities.GifUi
 import com.example.natifetest.domain.usecases.DeleteGifUseCase
 import com.example.natifetest.domain.usecases.FetchAndSaveGifsUseCase
 import com.example.natifetest.ui.uiState.GifUiState
-import com.example.natifetest.util.GifMapper.toEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -61,9 +60,9 @@ class GifViewModel @Inject constructor(
         }
     }
 
-    fun deleteGif(gifEntity: GifUi) {
+    fun deleteGif(gifId: String) {
         viewModelScope.launch {
-           deleteGifUseCase.invoke(gifEntity.toEntity())
+           deleteGifUseCase.invoke(gifId)
         }
     }
     fun searchGifs(query: String) {

@@ -10,5 +10,5 @@ interface GifRepository {
     suspend fun saveGifs(gifs: List<GifEntity>)
     suspend fun getGifById(id: String): Flow<GifEntity>
     suspend fun getAllGifs() : Flow<List<GifEntity>>
-    suspend fun deleteGif(gifEntity: GifEntity)
+    suspend fun deleteGif(gifId: String)
 }

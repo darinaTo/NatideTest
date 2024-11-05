@@ -3,6 +3,7 @@ package com.example.natifetest.data.services.local
 import com.example.natifetest.domain.entities.dbEntities.GifEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,12 +17,14 @@ class GifLocalDataSource @Inject constructor(
 
     suspend fun getAllGifs(): Flow<List<GifEntity>> =
         withContext(Dispatchers.IO) {
-            gifDao.getGifs()
+            gifDao.getGifs().map { gifs ->
+                gifs.filter { !it.isDeleted }
+            }
         }
 
-    suspend fun deleteGif(gif: GifEntity) =
+    suspend fun deleteGif(gifId: String) =
         withContext(Dispatchers.IO) {
-            gifDao.deleteGif(gif)
+            gifDao.deleteGif(gifId)
         }
 
     suspend fun saveGifs(gifs: List<GifEntity>) {
@@ -29,4 +32,10 @@ class GifLocalDataSource @Inject constructor(
             gifDao.insertsGif(gifs)
         }
     }
-}
+
+    suspend fun getDeletedGifIds(): Flow<List<String>> =
+        withContext(Dispatchers.IO) {
+            gifDao.getDeletedGifsId()
+        }
+    }
+

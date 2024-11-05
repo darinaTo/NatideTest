@@ -30,7 +30,7 @@ fun GifScreen(viewModel: GifViewModel = hiltViewModel()) {
             ) {
                 LazyColumn() {
                     items(searchResults) { gif ->
-                        GifItem(gif, onItemClick = {}, onDeleteClick = {gifEntity -> viewModel.deleteGif(gifEntity)})
+                        GifItem(gif, onItemClick = {}, onDeleteClick = {gifId -> viewModel.deleteGif(gifId)})
                     }
                 }
             }

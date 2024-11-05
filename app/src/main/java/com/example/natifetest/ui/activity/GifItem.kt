@@ -35,7 +35,7 @@ import com.example.natifetest.domain.entities.uiEntities.GifUi
 
 @Composable
 fun GifItem(
-    gif: GifUi, onItemClick: (String) -> Unit, onDeleteClick: (GifUi) -> Unit
+    gif: GifUi, onItemClick: (String) -> Unit, onDeleteClick: (String) -> Unit
 ) {
     var isLoading by remember { mutableStateOf(true) }
 
@@ -94,7 +94,7 @@ fun GifItem(
                     .padding(end = 8.dp)
             )
 
-            Button(onClick = { onDeleteClick(gif) }) {
+            Button(onClick = { onDeleteClick(gif.id) }) {
                 Text(text = "Delete")
             }
         }
