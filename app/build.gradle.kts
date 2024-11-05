@@ -101,7 +101,7 @@ dependencies {
     implementation ("io.coil-kt:coil:2.5.0")
     implementation ("com.google.accompanist:accompanist-coil:0.10.0")
     implementation ("io.coil-kt:coil-compose:2.5.0")
-
+    implementation("io.coil-kt:coil-gif:2.6.0")
 
     //Json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
@@ -113,5 +113,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+   //Gif
+    implementation("com.google.accompanist:accompanist-drawablepainter:0.35.0-alpha")
 
 }
