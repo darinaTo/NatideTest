@@ -3,8 +3,10 @@ package com.example.natifetest.ui.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.natifetest.domain.entities.uiEntities.GifUi
+import com.example.natifetest.domain.usecases.DeleteGifUseCase
 import com.example.natifetest.domain.usecases.FetchAndSaveGifsUseCase
 import com.example.natifetest.ui.uiState.GifUiState
+import com.example.natifetest.util.GifMapper.toEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GifViewModel @Inject constructor(
-    private val fetchAndSaveGifsUseCase: FetchAndSaveGifsUseCase
+    private val fetchAndSaveGifsUseCase: FetchAndSaveGifsUseCase,
+    private val deleteGifUseCase: DeleteGifUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GifUiState())
@@ -58,6 +61,11 @@ class GifViewModel @Inject constructor(
         }
     }
 
+    fun deleteGif(gifEntity: GifUi) {
+        viewModelScope.launch {
+           deleteGifUseCase.invoke(gifEntity.toEntity())
+        }
+    }
     fun searchGifs(query: String) {
         _uiState.value = _uiState.value.copy(searchQuery = query)
     }

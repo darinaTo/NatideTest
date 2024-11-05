@@ -25,4 +25,12 @@ class GifRepositoryImpl @Inject constructor(
     override suspend fun getGifById(id: String): Flow<GifEntity> {
         return localDataSource.getGifById(id)
     }
+
+    override suspend fun getAllGifs(): Flow<List<GifEntity>> =
+        localDataSource.getAllGifs()
+
+
+    override suspend fun deleteGif(gifEntity: GifEntity) {
+        localDataSource.deleteGif(gifEntity)
+    }
 }

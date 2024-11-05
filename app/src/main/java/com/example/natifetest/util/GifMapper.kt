@@ -17,6 +17,14 @@ object GifMapper {
             imageUrl = this.image
         )
     }
+    fun GifUi.toEntity(): GifEntity {
+        return GifEntity(
+            id = this.id,
+            title = this.title,
+            image = this.imageUrl
+        )
+    }
+
 
     private fun GifData.toDbEntity(): GifEntity {
         return GifEntity(

@@ -14,10 +14,16 @@ class GifLocalDataSource @Inject constructor(
             gifDao.getGifById(id)
         }
 
-    suspend fun getAllGifs() : Flow<List<GifEntity>> =
+    suspend fun getAllGifs(): Flow<List<GifEntity>> =
         withContext(Dispatchers.IO) {
             gifDao.getGifs()
         }
+
+    suspend fun deleteGif(gif: GifEntity) =
+        withContext(Dispatchers.IO) {
+            gifDao.deleteGif(gif)
+        }
+
     suspend fun saveGifs(gifs: List<GifEntity>) {
         withContext(Dispatchers.IO) {
             gifDao.insertsGif(gifs)

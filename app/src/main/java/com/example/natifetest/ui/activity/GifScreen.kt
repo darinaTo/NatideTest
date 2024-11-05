@@ -30,13 +30,14 @@ fun GifScreen(viewModel: GifViewModel = hiltViewModel()) {
             ) {
                 LazyColumn() {
                     items(searchResults) { gif ->
-                        GifItem(gif, onItemClick = {})
+                        GifItem(gif, onItemClick = {}, onDeleteClick = {gifEntity -> viewModel.deleteGif(gifEntity)})
                     }
                 }
             }
         } else {
-            CircularProgressIndicator()
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator()
+            }
         }
     }
 }
-
