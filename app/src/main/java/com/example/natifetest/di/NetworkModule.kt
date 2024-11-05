@@ -25,12 +25,15 @@ object NetworkModule {
             .add(KotlinJsonAdapterFactory())
             .build()
     }
-    private fun provideOkHttpClient(): OkHttpClient {
+
+    @Singleton
+    @Provides
+     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val originalRequest = chain.request()
 
-                val urlWithApiKey = originalRequest.url().newBuilder()
+                val urlWithApiKey = originalRequest.url.newBuilder()
                     .addQueryParameter("api_key", API_KEY)
                     .build()
                 val newRequest = originalRequest.newBuilder()
@@ -57,5 +60,4 @@ object NetworkModule {
     fun provideGifApiService(retrofit: Retrofit): GifApiService {
         return retrofit.create(GifApiService::class.java)
     }
-
 }
