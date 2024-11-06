@@ -38,4 +38,3 @@ class GifLocalDataSource @Inject constructor(
             gifDao.getDeletedGifsId()
         }
     }
-

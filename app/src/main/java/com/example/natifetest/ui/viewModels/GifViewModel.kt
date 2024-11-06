@@ -50,8 +50,6 @@ class GifViewModel @Inject constructor(
     init {
         fetchTrendingGifs()
     }
-
-
     private fun fetchTrendingGifs() {
         viewModelScope.launch {
             fetchAndSaveGifsUseCase.execute().onEach { data ->

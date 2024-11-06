@@ -1,4 +1,4 @@
-package com.example.natifetest.ui.activity
+package com.example.natifetest.ui.activity.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

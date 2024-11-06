@@ -19,7 +19,6 @@ class GifRepositoryImpl @Inject constructor(
         val response =  remoteDataSource.getGifFromApi().getOrDefault(GifResponse(emptyList())).data
             .filter{ gif ->
                 !deletedGifIds.contains(gif.id) }
-
         return GifResponse(response)
     }
 

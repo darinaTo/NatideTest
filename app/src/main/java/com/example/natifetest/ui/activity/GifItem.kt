@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,10 +29,13 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.decode.ImageDecoderDecoder
 import com.example.natifetest.domain.entities.uiEntities.GifUi
+import com.example.natifetest.ui.activity.component.ProgressBar
 
 @Composable
 fun GifItem(
-    gif: GifUi, onItemClick: (String) -> Unit, onDeleteClick: (String) -> Unit
+    gif: GifUi,
+    onItemClick: () -> Unit,
+    onDeleteClick: (String) -> Unit
 ) {
     var isLoading by remember { mutableStateOf(true) }
 
@@ -49,34 +49,27 @@ fun GifItem(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceAround
     ) {
-        Card(
+        Box(
             modifier = Modifier
                 .padding(8.dp)
                 .height(400.dp)
                 .fillMaxWidth()
-                .clickable { onItemClick(gif.id) },
-            elevation = CardDefaults.cardElevation(4.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .clickable { onItemClick() }
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                AsyncImage(
-                    model = gif.imageUrl,
-                    contentDescription = gif.title,
-                    imageLoader = gifEnabledLoader,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(8.dp)),
-                    onState = { state ->
-                        isLoading = state is AsyncImagePainter.State.Loading
-                    }
-                )
-                if (isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+            AsyncImage(
+                model = gif.imageUrl,
+                contentDescription = gif.title,
+                imageLoader = gifEnabledLoader,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize() ,
+                onState = { state ->
+                    isLoading = state is AsyncImagePainter.State.Loading
                 }
+            )
+            if (isLoading) {
+                ProgressBar()
             }
         }
         Row(
@@ -100,4 +93,3 @@ fun GifItem(
         }
     }
 }
-
