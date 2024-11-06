@@ -27,10 +27,6 @@ class GifRepositoryImpl @Inject constructor(
         localDataSource.saveGifs(gifs)
     }
 
-    override suspend fun getGifById(id: String): Flow<GifEntity> {
-        return localDataSource.getGifById(id)
-    }
-
     override suspend fun getAllGifs(): Flow<List<GifEntity>> =
         localDataSource.getAllGifs()
 
